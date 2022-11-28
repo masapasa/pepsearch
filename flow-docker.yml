@@ -1,0 +1,20 @@
+jtype: Flow
+with:
+  protocol: grpc
+executors:
+  - name: encoder
+    uses: jinahub+docker://SpacyTextEncoder/v0.4
+    install_requirements: true
+    uses_with:
+      model_name: 'en_core_web_md'
+    resources:
+      memory: 8G
+  - name: indexer
+    install_requirements: true
+    uses: jinahub+docker://AnnLiteIndexer/0.3.0
+    uses_with:
+      n_dim: 300
+      # columns:
+      #   - ['title', 'str']
+      #   - ['abstract', 'str']
+      workspace: workspace

@@ -1,0 +1,9 @@
+.env
+arxiv-metadata-oai-snapshot.json
+venv
+__pycache__
+data
+models
+workspace
+.vscode
+.pytest_cache

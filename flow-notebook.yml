@@ -1,0 +1,19 @@
+jtype: Flow
+with:
+  protocol: grpc
+executors:
+  - name: encoder
+    uses: jinahub://SpacyTextEncoder
+    install_requirements: true
+    uses_with:
+      model_name: 'en_core_web_md'
+    resources:
+      memory: 8G
+  - name: indexer
+    uses: jinahub://AnnLiteIndexer
+    install_requirements: true
+    #dim: 300
+    columns:
+      - ['CreationDate', 'float']
+      - ['Score', 'int']
+      - ['IsAcceptedAnswer', 'str']

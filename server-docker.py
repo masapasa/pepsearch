@@ -1,13 +1,13 @@
 from docarray import DocumentArray
 from jina import Flow, Client
 #DATA_FILE = "/home/aswin/documents/pepsearch/data/papers.csv"
-DATA_FILE = "/home/aswin/documents/example-knowledge-base-stackoverflow/data/small/Questions.csv"
+DATA_FILE = "/home/aswin/documents/papers-search/backend/src/data/papers.csv"
 
 
 def index(num_docs: int):
     print(f"Processing {num_docs} Documents")
     docs = DocumentArray.from_csv(
-        DATA_FILE, field_resolver={"Title":"text"}
+        DATA_FILE, size=11, field_resolver={"source_id": "id"}
     )
     # if cloud:
     # client = Client("grpcs://nowapi-194b153979.wolf.jina.ai")

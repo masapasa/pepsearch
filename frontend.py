@@ -1,7 +1,7 @@
 import requests
 import json
 import streamlit as st
-
+host = ""
 
 def get_text(title: str, abstract: str):
     return f"{title}[SEP]{abstract}"
@@ -24,32 +24,8 @@ def search(abstract: str, host: str) -> dict:
     return doc
 
 
-def finetune(doc: dict, match: dict, relevant: bool, host: str) -> dict:
-    labeled = doc.copy()
-
-    labeled["tags"]["finetuner"] = {"label": 1 if relevant else -1}
-    match["tags"]["finetuner"] = {"label": 1 if relevant else -1}
-    labeled["matches"] = [match]
-    data = {"data": [labeled]}
-
-    content = requests.post(
-        f"{host}/finetune",
-        headers={
-            "Content-Type": "application/json",
-        },
-        data=json.dumps(data),
-    ).json()
-
-    doc = content["data"][0]
-
-    return doc
-
-
 def match_score(match):
     return 1 - match["scores"]["cosine"]["value"]
-
-
-host = "http://localhost:8020"
 
 st.title("Papers search")
 
